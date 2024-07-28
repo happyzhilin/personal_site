@@ -4,9 +4,9 @@ export default [
     title: "notes",
     collapsable: false,
     children: [
-        "python.md",
-        "linux.md",
-        "git.md",
+        "notes/python.md",
+        "notes/linux.md",
+        "notes/git.md",
     ],
   },
 ];

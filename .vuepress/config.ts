@@ -17,7 +17,7 @@ export default defineConfig({
       {
         name: "keywords",
         content:
-          "Python, Linux, Git",
+          "",
       },
     ],
   ],
@@ -93,11 +93,11 @@ export default defineConfig({
   themeConfig: {
     nav: navbar,
     sidebar,
-    lastUpdated: "最近更新",
+    // lastUpdated: "最近更新",
 
     // GitHub 仓库位置
-    repo: "happyzhilin/personal_site",
-    docsBranch: "master",
+    // repo: "happyzhilin/personal_site",
+    // docsBranch: "master",
 
     // 编辑链接
     // editLinks: true,

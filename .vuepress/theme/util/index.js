@@ -17,22 +17,8 @@ export function getHash (path) {
   }
 }
 
-export function isExternal (path) {
-  return outboundRE.test(path)
-}
-
-export function isMailto (path) {
-  return /^mailto:/.test(path)
-}
-
-export function isTel (path) {
-  return /^tel:/.test(path)
-}
 
 export function ensureExt (path) {
-  if (isExternal(path)) {
-    return path
-  }
   const hashMatch = path.match(hashRE)
   const hash = hashMatch ? hashMatch[0] : ''
   const normalized = normalize(path)
@@ -55,12 +41,6 @@ export function isActive (route, path) {
 }
 
 export function resolvePage (pages, rawPath, base) {
-  if (isExternal(rawPath)) {
-    return {
-      type: 'external',
-      path: rawPath
-    }
-  }
   if (base) {
     rawPath = resolvePath(rawPath, base)
   }
@@ -183,11 +163,6 @@ export function groupHeaders (headers) {
   return headers.filter(h => h.level === 2)
 }
 
-export function resolveNavLinkItem (linkItem) {
-  return Object.assign(linkItem, {
-    type: linkItem.items && linkItem.items.length ? 'links' : 'link'
-  })
-}
 
 /**
  * @param { Route } route

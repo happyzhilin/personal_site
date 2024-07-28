@@ -26,7 +26,6 @@
 
 <script>
 
-import NavLinks from '@theme/components/NavLinks.vue'
 
 
 export default {
@@ -37,7 +36,6 @@ export default {
       list: []
     }
   },
-  components: { NavLinks },
 
   props: ['pageSidebarItems', 'sidebarItems'],
 

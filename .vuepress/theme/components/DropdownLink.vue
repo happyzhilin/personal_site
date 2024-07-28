@@ -50,22 +50,10 @@
               :key="childSubItem.link"
               class="dropdown-subitem"
             >
-              <NavLink
-                :item="childSubItem"
-                @focusout="
-                  isLastItemOfArray(childSubItem, subItem.items) &&
-                    isLastItemOfArray(subItem, item.items) &&
-                    setOpen(false)
-                "
-              />
+
             </li>
           </ul>
 
-          <NavLink
-            v-else
-            :item="subItem"
-            @focusout="isLastItemOfArray(subItem, item.items) && setOpen(false)"
-          />
         </li>
       </ul>
     </DropdownTransition>
@@ -73,7 +61,6 @@
 </template>
 
 <script>
-import NavLink from '@theme/components/NavLink.vue'
 import DropdownTransition from '@theme/components/DropdownTransition.vue'
 import last from 'lodash/last'
 
@@ -81,7 +68,6 @@ export default {
   name: 'DropdownLink',
 
   components: {
-    NavLink,
     DropdownTransition
   },
 
