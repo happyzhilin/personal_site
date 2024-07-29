@@ -45,7 +45,7 @@ print(id(a_list))
 s = "hello"
 print(s[0], s[-5])
 print(s[-1], s[4])
-```
+ ```
 > 切片的语法为：[起始位:结束位:步长]
 > 
 > 范围是从起始位开始，到结束位（不包含结束位），步长为负时从后往前取值。
@@ -75,4 +75,81 @@ print(s[-1:-5:-1])
 print(s[::-1])
 ```
 > 常用字符串操作，也就是字符串类型可调用的方法
+>
+> 字符串可以调用方法比如find, index, count, replace, split, capitalize, title, startswith, endswith
+>
+> lower, upper, lstrip, rstrip, rfind, rindex, partition, rpartition, splitilines, join等
+
+```python
+mystr = "hello world python2 and python3"
+# find，find(str, start, end)反回查找到对应第一个字符的序号, 否则反回-1
+# rfind 与find差不多，从右开始查找
+mystr.find("python")
+mystr.rfind("python")
+mystr.find("python", 0, 10)
+mystr.rfind("python", 0, 10)
+# index，index(str, start, end)与find一样，无匹配字符串时会报异常
+# rindex, 从右开始查找
+mystr.index("python")
+mystr.rindex("python")
+#mystr.index("python", 0, 10)
+# count，count(str, start, end)统计字符串在mystr中出现的次数
+mystr.count("python")
+mystr.count("python", 0, 10)
+# replace, replace(str1, str2, mystr.count(str1))， 将str1替换成str2，默认全部替换
+mystr.replace("python", "pycharm")
+mystr.replace("python", "pycharm", 1)
+# split split(str, maxsplit), 分隔maxsplit个子字符串，返回子字符串列表，比如空隔分隔
+mystr.split(" ", 2)
+# capitalize 字符串第一个字符大写
+mystr.capitalize()
+# title 字符串的每个单词大写
+mystr.title()
+# startswith, endswith, 检查是否是以某字符开头或结尾，返回True, False
+mystr.startswith("hello")
+mystr.startswith("Hello")
+mystr.endswith("python3")
+mystr.endswith("python2")
+# lower, upper, 返回转换成小写和大写的字符串
+mystr.lower()
+mystr.upper()
+# lstrip, rstrip 删除左边空白字符，删除右边空白字符
+"   hello   ".lstrip()
+"   hello   ".rstrip()
+# strip 删除两边的空白字符
+"   hello   ".strip()
+# partition, rpartition 与split分隔一次相比多一个分隔的字符串，反回3字符串的列表
+mystr.partition("python")
+mystr.rpartition("python")
+# splitlines 按行分隔，返回各行作为元素的列表
+mystr="hello\nworld"
+mystr
+mystr.splitlines()
+# join 拼接构造字符串
+" ".join("abcdefg")
+"_".join("abcdefg")
+" ".join(["1", "2", "3", "4"])
+"_".join(["1", "2", "3", "4"])
+"HELLO".join(["a", "1", "b", "2"])
+```
+
+## 列表类型相关操作
+
+> 列表遍历，可以使用for循环和while循环
+
+```python
+num = [10, 20, 30, 40]
+for value in num:
+    print(value)
+
+i = 0
+while i < len(num):
+    print(num[i])
+    i += 1
+```
+
+> 列表相关操作
+>
+> 添加元素有append, extend, insert
+>
 > 
