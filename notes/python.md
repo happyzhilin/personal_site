@@ -245,3 +245,70 @@ a
 
 ```
 
+## 元组类型相关操作
+
+> Python元组与列表类似，不同的点就是元组的元素不能修改。元组是圆括号，列表是方括号
+>
+> 访问数据使用下标
+>
+> 元组方法count, index与字符串用法相同
+
+```python
+a = ('a', 'b', 'c', 'b')
+a[0]
+a.count('b')
+a.index('b', 0, 2)
+```
+
+## 字典类型相关操作
+
+>  字典每个元素组成为key:value，键：值
+>
+> 列表找元素是根据下标，字典找元素是根据key进行的
+>
+> key可以是字符和数字，尽量用字符作为key，整数作为key时容易当成是列表下标取值
+
+```python
+# 查看元素
+info = {"name": "lin", "age": 18, 1:10, 1.1:100}
+info["name"]
+info["age"]
+info[1]
+info[1.1]
+# 修改元素,增加元素，有key则修改，没有则新增
+info["age"] = 20
+info
+info["mail"] = "123@qq.com"
+info
+# 删除 del删除一个指定元素 clear()清空
+del info[1.1]
+info
+info.clear()
+info
+
+```
+
+> 字典常用方法 len(), keys(), values(), items()
+>
+> len()返回键值对个数
+>
+> keys()返回包含所有key的列表
+>
+> values()返回包含所有值的列表
+>
+> items()返回包含所有（键，值）元组的列表
+
+```python
+info = {"name": "lin", "age": 18}
+len(info)
+info.keys()
+info.values()
+info.items()
+
+# 字典遍历
+for key, value in info.items():
+    print(key, value)
+
+# 有序字典OrderDict，Python3.6及以上版本默认字典就是有序字典
+```
+
