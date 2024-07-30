@@ -574,3 +574,86 @@ class filter(object)
 """
 ```
 
+## 文件的相关操作
+
+> 文件的读写
+>
+> write()可以向文件写入数据
+>
+> read(num)可以从文件读取数据，num表示从文件中读取的长度（单位是字节），不传则读取文件中的所有数据
+
+```python
+f = open("test.txt", "w")
+f.write("hello world")
+f.close()
+
+f = open("test.txt", "r")
+content = f.read(3)
+print(content)
+print("-"*50)
+content = f.read()
+print(content)
+f.close()
+
+# with语句可以自动关闭文件，不管有没有异常都能正常关闭文件
+with open("test.txt", "r") as f:
+    f.read()
+
+
+```
+
+> readlines() 和不传参数的read一样一次性读取文件所有内容，readlines按行方式进行一次性读取，返回一个列表，列表中的每一个元素为文件中的一行内容
+>
+> readline()读取一行
+
+```python
+# readlines
+"""Help on built-in function readlines:
+
+readlines(hint=-1, /) method of _io.TextIOWrapper instance
+    Return a list of lines from the stream.
+
+    hint can be specified to control the number of lines read: no more
+    lines will be read if the total size (in bytes/characters) of all
+    lines so far exceeds hint.
+"""
+# readline
+"""Help on built-in function readline:
+
+readline(size=-1, /) method of _io.TextIOWrapper instance
+    Read until newline or EOF.
+
+    Returns an empty string if EOF is hit immediately.
+"""
+```
+
+> 文件常用操作
+>
+> 对文件的重命名，删除等操作需要导入os模块
+
+```python
+f = open("test.txt", "w")
+f.write("hello world!")
+f.close()
+
+import os
+# 重命名
+os.rename("test.txt", "test1.txt")
+# 删除
+os.remove("test1.txt")
+# 创建目录（文件夹）
+os.mkdir("test_dir")
+# 获取当前目录
+os.getcwd()
+# 改变默认目录
+os.chdir("test_dir")
+# 获取目录列表
+os.mkdir("test2_dir")
+os.listdir("./")
+# 删除目录
+os.rmdir("test2_dir")
+
+```
+
+
+
