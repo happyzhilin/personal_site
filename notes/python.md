@@ -2,13 +2,13 @@
 
 ## python的数据类型
 
-> **字符串型 数值型 列表 元组 字典 Bool型**
+> **字符串型 数值型 列表 元组 字典 Bool型 集合**
 >
 > 数值型包括：整型int，长整型(python3版本中也是int)，浮点型float，复数型complex
 >
 > Bool类型只有两个值: True False
 >
-> 其中字符串，数值型，元组不可变类型，列表可元组是可变类型
+> 其中字符串，数值型，元组不可变类型，列表，字典和集合是可变类型
 > 
 
 > 不可变类型：python中的不可变数据类型，不允许变量的值发生变化，如果改变了变量的值，相当于是新建了一个对象，而对于相同的值的对象，在内存中则只有一个对象，内部会有一个引用计数来记录有多少个变量引用这个对象。
@@ -34,6 +34,9 @@ print(id(a_list))
 a_list.append(3)
 print(id(a_list))
 # 字典为可变类型，但是字典中的key是字符串型或是数值型，所以key是不可变类型
+# 集合是不重复的元素合集，集合，列表，元组可以相互转化，集合可以快速完成列表去重
+a = [1, 2, 1, 2 ,3]
+list(set(a))
 ```
 
 ## 切片及字符串常用操作
@@ -237,11 +240,18 @@ a
 
 ```
 
-> 列表嵌套
+> 列表嵌套，列表推倒式
 
 ```python
 a = [[1,2], [3, 4], [5, 6]]
 a
+# 列表推倒式
+[x for x in range(6)]
+[x for x in range(3,10) if x%2 ==0]
+
+# 0-99分成4组
+a = [x for x in range(100) ]
+[a[x:x+4] for x in range(0, len(a), 4)]
 
 ```
 
@@ -310,5 +320,257 @@ for key, value in info.items():
     print(key, value)
 
 # 有序字典OrderDict，Python3.6及以上版本默认字典就是有序字典
+```
+
+## 函数相关内容
+
+> Python的公共方法和内置容数 
+>
+> 公共方法 + * in  内置函数 max(), min(), len(), del()
+
+```python
+# + * in
+"abc" + "def"
+[1, 2] + [3, 4]
+(1, 2) + (3, 4)
+
+"abc"*3
+[1,2] * 3
+(1, 2) * 3
+
+'a' in 'abc'
+3 in [1, 2, 3]
+2 in (1, 2, 3)
+
+# max 返回最在值
+# min 返回最小值
+# len 返回元素个数
+# del 删除变量
+max("hello world")
+max([1, 2, 3.14 ])
+max({"a": 1, "b": 2})
+
+min("hello world")
+min([1, 2, 3.14 ])
+min({"a": 1, "b": 2})
+
+len("hello world")
+len([1, 2, 3, 4])
+len({"name": "lin", "age": 18})
+
+a = ['a', 'b', 'c']
+b = [1, 2, 3]
+del a[0]
+del(b[0])
+a
+b
+
+```
+
+> 函数的定义和调用
+>
+> 格式：
+>
+> def func_name():
+>
+> ​	code
+>
+> 调用：
+>
+> func_name()
+
+```python
+# 无参数函数
+def test():
+    print("test func_name")
+
+test()
+# 有参数有返回值的函数
+def add(num1, num2):
+    return num1+num2
+
+a= 2
+b = 3
+add(a, b)
+# 定义中的用来接收参数的为形参，比如上面的num1,num2
+# 调用时传入的参数为实参，传递给函数用的，比如上面的a，b
+
+
+```
+
+> 函数参数
+>
+> 形参中有默认值的参数称为缺省参数，缺省参数位于参数列表的最后面
+>
+> 处理比函数定义里更多的参数时，多的这些参数叫做不定长参数，声明时不会命名
+>
+> 例如：
+>
+> def func_name(param1, param2, *args, **kwargs):
+>
+> ​	code
+>
+> 加了*的变量args会存放所有未命名的变量参数，args为元组，也就是调用时传入的位置参数
+>
+> 加了**的变量kwargs会存放命名参数，也就是调用函数时传入时是key=value的参数，kwargs为字典
+
+```python
+def fun(a, b, *args, **kwargs):
+    print(f"a={a}")
+    print(f"b={b}")
+    print(f"args: {args}")
+    print(f"kwargs: {kwargs}")
+
+fun(1, 2, 3, 4, 5, 6, x=7, y=8, z=9)
+# 缺省参数也就是默认值参数放在*args **kwargs之间
+"""
+可以发现有的函数定义中有/ *在参数之间
+help(sorted) 
+Help on built-in function sorted in module builtins:
+
+sorted(iterable, /, *, key=None, reverse=False)
+    Return a new list containing all items from the iterable in ascending order.
+
+    A custom key function can be supplied to customize the sort order, and the
+    reverse flag can be set to request the result in descending order.
+在/之前的参数，之能用位置参数传递
+在*之后的参数，只能用关键字参数传递
+在/ *之间即可以传位置参数，也可以传关键字参数
+a=[2, 1, 3]
+sorted(a)
+如果写成sorted(iterable=a)时就会报错
+"""
+def fun(param1, /, param2, *, param3):
+    pass
+
+fun(1, 2, param3=3)
+fun(1, param2=2, param3=3)
+# fun(1, 2, 3)
+# fun(param1=1, param2=2, param3=3)
+"""
+>>> fun(1, 2, 3)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: fun() takes 2 positional arguments but 3 were given
+>>> fun(param1=1, param2=2, param3=3)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: fun() got some positional-only arguments passed as keyword arguments: 'param1'
+
+"""
+```
+
+> 函数注意事项
+>
+> 函数参数传递是引用传递，不是值传递
+>
+> 对于不可变类型，变量不能修改所以运算不会影响到变量自身
+>
+> 对于可变类型，函数体中的运算可能会更改传入的参数变量
+>
+> 函数名不能重复，函数中的变量只作用在函数中（局部变量），函数外的变量可在全部函数中使用（全局变量）
+>
+> 函数是否有返回值看函数中有没有return关键字，执行完return意味着调用完成，不会执行return后面的代码
+
+```python
+# 作用域，函数内改全局变理需要加global关键字
+def test1():
+    a = 10
+    print(f"a={a}, id={id(a)}")
+
+a = 20
+print(f"a={a}, id={id(a)}")
+test1()
+print(f"a={a}, id={id(a)}")
+# 可以看出函数内与全局变量同名不加global关键字时不能改变全局变量的值，加上global关键字才能更改
+def test2():
+    global a
+    a = 10
+    print(f"a={a}, id={id(a)}")
+
+a = 20
+print(f"a={a}, id={id(a)}")
+test2()
+print(f"a={a}, id={id(a)}")
+# 注意使用global关键字时，在加global关键子前不能使用对应变量，否则会报错
+"""
+>>> def test3():
+...     print(f"a={a}")
+...     global a
+...     a = 10
+...     print(f"a={a}, id={id(a)}")
+...
+  File "<stdin>", line 3
+SyntaxError: name 'a' is used prior to global declaration
+>>> a = 20
+>>> print(f"a={a}, id={id(a)}")
+a=20, id=9789568
+>>> test3()
+
+"""
+
+```
+
+> 匿名函数以及高阶函数
+>
+> 匿名函数就是没有名字的单行函数，格式：
+>
+> lambda param1, param2, ... : 表达式或函数调用
+>
+> 匿名函数与普通函数的区别：
+>
+> 匿名函数不能使用if 语句，while循环，for循环，只能编写单行表达式或函数调用
+>
+> 匿名函数表达式结果就是返回结果，不用写return语句
+>
+> 函数的参数是函数类型，那这这样的函数就是高阶函数，比如reduce，filter，返回值是函数的也算高阶函数
+
+```python
+# reduce函数使用需要导入functools模块
+import functools
+# help(functools.reduce)
+"""Help on built-in function reduce in module _functools:
+
+reduce(...)
+    reduce(function, sequence[, initial]) -> value
+
+    Apply a function of two arguments cumulatively to the items of a sequence,
+    from left to right, so as to reduce the sequence to a single value.
+    For example, reduce(lambda x, y: x+y, [1, 2, 3, 4, 5]) calculates
+    ((((1+2)+3)+4)+5).  If initial is present, it is placed before the items
+    of the sequence in the calculation, and serves as a default when the
+    sequence is empty.
+"""
+
+# filter函数
+# help(filter)
+"""Help on class filter in module builtins:
+
+class filter(object)
+ |  filter(function or None, iterable) --> filter object
+ |
+ |  Return an iterator yielding those items of iterable for which function(item)
+ |  is true. If function is None, return the items that are true.
+ |
+ |  Methods defined here:
+ |
+ |  __getattribute__(self, name, /)
+ |      Return getattr(self, name).
+ |
+ |  __iter__(self, /)
+ |      Implement iter(self).
+ |
+ |  __next__(self, /)
+ |      Implement next(self).
+ |
+ |  __reduce__(...)
+ |      Return state information for pickling.
+ |
+ |  ----------------------------------------------------------------------
+ |  Static methods defined here:
+ |
+ |  __new__(*args, **kwargs) from builtins.type
+ |      Create and return a new object.  See help(type) for accurate signature.
+"""
 ```
 
