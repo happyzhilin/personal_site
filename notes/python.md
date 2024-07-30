@@ -152,4 +152,96 @@ while i < len(num):
 >
 > 添加元素有append, extend, insert
 >
-> 
+
+```python
+a = [1, 2]
+b = [3, 4]
+a.append(b)
+a
+# extend会逐一添加
+a.extend(b)
+a
+# insert(index, object)在指定位置添加元素
+a = [0, 1, 2]
+a.insert(1, 'hello')
+a
+```
+
+> 修改和查询
+>
+> 修改通过标修改，查找元素相关的有in, not in, index, count
+
+```python
+# 使用下标修改列表数据
+a = [1, 2, 3, 4]
+a[1] = 20
+a
+# in, not in判断是否存在列表中，返回值为True, False
+a = ['a', 'b', 'c']
+'a' in a
+'d' not in a
+'b' not in a
+
+# index, count用法与字符串中的方法相同
+
+```
+
+> 删除元素，del, pop,remove
+>
+> del 根据下票删除
+>
+> pop 删除最后一个元素
+>
+> remove 根据元素的值进行删除
+
+```python
+a = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+a
+del a[1]
+a.remove('e')
+a.pop()
+a
+
+```
+
+> 排序 sort, reverse，Python列表自带排序方法
+>
+> 默认升序，由小到大， reverse=True时，倒序，由大到小， reverse方法是将列表逆置
+
+```python
+# a.sort()  a.reverse()都是直接修改列表数据
+a = [5, 1, 4, 6, 2, 3, 7]
+a
+a.reverse()
+a
+a.sort()
+a
+a.sort(reverse=True)
+a
+
+# sorted()可以返回排序结果不改变原有数据
+a = [5, 1, 4, 6, 2, 3, 7]
+sorted(a)
+sorted(a, reverse=True)
+a
+
+# 若不使用Python自带排序，可以使用双循环实现排序
+a = [5, 1, 4, 6, 2, 3, 7]
+for i in range(len(a)):
+    for j in range(len(a)):
+        if a[j] > a[i]:
+            a[j], a[i] = a[i], a[j]
+
+# 这样排序是升序，降序改成小于就行
+a     
+
+```
+
+> 列表嵌套
+
+```python
+a = [[1,2], [3, 4], [5, 6]]
+a
+
+```
+
