@@ -66,7 +66,7 @@ export default {
   li, a , p, span
     word-wrap break-word
 .theme-default-content
-  margin 0 !important
+  margin 200 !important
 
 .page
   display block
@@ -80,58 +80,58 @@ export default {
   width 100%
   flex-grow 1
   //padding-left 32px
-  display: block;
-  position: relative;
+  display block
+  position relative
   color $textColor
   //: calc(100vw - 460px);
-  top: 80px;
-  max-width: 240px;
+  top 80px
+  max-width 240px
   background transparent
-  margin-right: 10px;
-  margin-left: 0;
+  margin-right 10px
+  margin-left 0
   .on
-    display: block;
+    display: block
   .pos-box
-    position: fixed;
-    padding: 16px;
-    top 80px;
+    position: fixed
+    padding: 16px
+    top 80px
     height 100vh
     overflow-x hidden
     overflow-y auto
 
     .icon-arrow
-      position: relative;
-      margin-left: -20px;
+      position: relative
+      margin-left: -20px
     .scroll-box
-      overflow-x: hidden;
-      overflow-y: hidden;
+      overflow-x: hidden
+      overflow-y: hidden
       & > div:first-child
         overflow-x scroll
-        white-space: nowrap;
+        white-space: nowrap
         text-overflow ellipsis
       hr
         margin-top: 0.5rem
       .toc-box
-        max-height:81vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 238px;
-        padding-right: 16px;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+        max-height:81vh
+        overflow-y: auto
+        overflow-x: hidden
+        width: 238px
+        padding-right: 16px
+        -webkit-box-sizing: border-box
+        box-sizing: border-box
       & > ol
-        margin-top: -8px;
+        margin-top: -8px
         li
-          margin-top: 8px;
-          line-height: 17px;
-          text-align: left;
-          overflow: auto;
-          text-overflow: ellipsis;
-          font-size: 12px;
-          white-space: nowrap;
+          margin-top: 8px
+          line-height: 17px
+          text-align: left
+          overflow: auto
+          text-overflow: ellipsis
+          font-size: 12px
+          white-space: nowrap
         .sub-box
-          margin-top: 0;
+          margin-top: 0
         & > ol > li
-          padding-left: 15px;
+          padding-left: 15px
 
 </style>
