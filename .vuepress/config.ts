@@ -91,7 +91,7 @@ export default defineConfig({
   ],
   // 主题配置
   themeConfig: {
-    nav: navbar,
+    // nav: navbar,
     sidebar,
     // lastUpdated: "最近更新",
 

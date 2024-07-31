@@ -19,10 +19,8 @@ permalink: /
 > [正则匹配工具]( https://regex101.com/)
 > [格式转换工具]( https://cloudconvert.com/)
 > [算法可视化](https://visualgo.net/en)
-> [ascii作图工具]( https://asciiflow.com/#/)
 > 
 > [函数作图工具](https://www.desmos.com/calculator?lang=zh-CN)
-> [Linux命令大全](https://www.linuxcool.com/)
 > [变量命名](https://unbug.github.io/codelf/)
 > [在线工具](https://tool.lu/)
 

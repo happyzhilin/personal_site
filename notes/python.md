@@ -1,4 +1,4 @@
-# Python相关的笔记
+# Python基础相关的笔记
 
 ## python的数据类型
 
@@ -655,5 +655,295 @@ os.rmdir("test2_dir")
 
 ```
 
+## 面向对象介绍
 
+> 如今主流软件开发的思想有：面向过程和面向对象。面向过程典型代码是C语言，面向对象典型代码是Java和C++
+>
+> 面向对象的3大特征：封装，继承，多态
+>
+> 类和对象：对象是面向对象编程的核心，在使用对象的过程中，为了将具有共同特征和行为的一组对象抽象定义，提出的一个新的概念“类”
+>
+> 类的构成：
+>
+> 类的名称，类的属性，类的方法
+
+```python
+# 定义类
+class User(object):
+    def info(self):
+        print(f"self={self}, type={type(self)}, id={hex(id(self))}")
+        print("user info")
+# object是Python里的顶级父类
+# 类的命名规则按照“大驼峰命名法”
+# info是一个实例方法，第一个参数一般是self，表示实例对象本身，一般不换成其它名字，其作用是指向实例对象本身的变量
+
+# 创建对象, hex()将整数转换成16进制，id()返回的内存地址是10进制显示的
+lin = User()
+lin.info()
+print(f"user={lin}, type={type(lin)}, id={hex(id(lin))}")
+
+""">>> # 定义类
+>>> class User(object):
+...     def info(self):
+...         print(f"self={self}, type={type(self)}, id={hex(id(self))}")
+...         print("user info")
+... # object是Python里的顶级父类
+... # 类的命名规则按照“大驼峰命名法”
+... # info是一个实例方法，第一个参数一般是self，表示实例对象本身，一般不换成其它名字，其作用是指向实例对象本身的变量
+...
+>>> # 创建对象, hex()将整数转换成16进制，id()返回的内存地址是10进制显示的
+>>> lin = User()
+>>> lin.info()
+self=<__main__.User object at 0x7f317e00d9a0>, type=<class '__main__.User'>, id=0x7f317e00d9a0
+user info
+>>> print(f"user={lin}, type={type(lin)}, id={hex(id(lin))}")
+user=<__main__.User object at 0x7f317e00d9a0>, type=<class '__main__.User'>, id=0x7f317e00d9a0
+>>>
+"""
+```
+
+> `__init_(self)`方法，在创建一个对象时默认被调用，不需要手动调用，self参数不需要开发者传递，python会自动把当明的对象引用传递过去
+>
+> `__str__()`方法返回一个字符串，作为这个对象的描述信息，如果没有定义改函数，则打打印对象的内存地址
+>
+> 在类的内部获取属性和方法通过self获取，在类的外部获取属性和实例方法通过对象名获取
+>
+> 一个类可以创建多个对象，如果一个类有多个对象，每个对象的属性是各自保存的，都有各自独立的内存地址
+>
+> 实例方法是所有对象共享的，只占用人分空间，类会通过self判断是哪个对象调用了实例方法
+
+```python
+# __init__(self)方法
+"""Help on wrapper_descriptor:
+
+__init__(self, /, *args, **kwargs)
+    Initialize self.  See help(type(self)) for accurate signature.
+"""
+# __str__()方法
+"""Help on wrapper_descriptor:
+
+__str__(self, /)
+    Return str(self).
+"""
+
+```
+
+> 继承相关笔记
+>
+> 继承描述的是多个类之间的所属关系，如果类A里面的属性和方法可以复用，则可以通过继承的方式，传递到类B里，A则叫基类，也叫父类，B叫派生类，也叫子类。
+>
+> `super()`可以逐一调用所有的父类方法，并且只执行一次
+
+```python
+class A(object):
+    def __init__(self):
+        self.num = 20
+    
+    def print_num(self):
+        print(self.num + 2)
+
+class B(A):
+    pass
+
+b = B()
+print(b.num)
+b.print_num()
+
+""">>> class A(object):
+...     def __init__(self):
+...         self.num = 20
+...
+...     def print_num(self):
+...         print(self.num + 2)
+...
+>>> class B(A):
+...     pass
+...
+>>> b = B()
+>>> print(b.num)
+20
+>>> b.print_num()
+22
+>>>
+"""
+# 虽然⼦类没有定义 __init__ ⽅法初始化属性，也没有定义实例⽅法，但是⽗类有。所以只要创建⼦类的对象，就默认执⾏了那个继承过来的 __init__ ⽅法
+# ⼦类在继承的时候，在定义类时，⼩括号()中为⽗类的名字
+# 父类的属性、⽅法，会被继承给⼦类
+```
+
+> 三大特性：封装，继承，多态
+>
+> 封装的意义：
+>
+> 将属性和⽅法放到⼀起做为⼀个整体，然后通过实例化对象来处理
+>
+> 隐藏内部实现细节，只需要和对象及其属性和⽅法交互就可以了
+>
+> 对类的属性和⽅法增加 访问权限控制
+>
+> 私有权限：在属性名和⽅法名 前⾯ 加上两个下划线 __
+>
+> 类的私有属性 和 私有⽅法，都不能通过对象直接访问，但是可以在本类内部访问
+>
+> 类的私有属性 和 私有⽅法，都不会被⼦类继承，⼦类也⽆法访问
+>
+> 私有属性 和 私有⽅法 往往⽤来处理类的内部事情，不通过对象处理，起到安全作⽤
+>
+> 多态：
+>
+> 在需要使⽤⽗类对象的地⽅,也可以使⽤⼦类对象, 这种情况就叫多态
+> ⽐如, 在函数中,我需要调⽤ 某⼀个⽗类对象的⽅法, 那么我们也可以在这个地⽅调⽤⼦类对象的⽅法
+>
+> 程序中实现多态
+>
+> 子类继承父类，重写父类中的方法，通过对象调用这个方法
+
+```python
+class A(object):
+    def print_name(self):
+        print("A print name")
+
+class B(A):
+    def print_name(self):
+        print("B print name")
+
+def who_print(user):
+    user.print_name()
+
+a = A()
+who_print(a)
+b = B()
+who_print(b)
+""">>> class A(object):
+...     def print_name(self):
+...         print("A print name")
+...
+>>> class B(A):
+...     def print_name(self):
+...         print("B print name")
+...
+>>> def who_print(user):
+...     user.print_name()
+...
+>>> a = A()
+>>> who_print(a)
+A print name
+>>> b = B()
+>>> who_print(b)
+B print name
+>>>
+"""
+```
+
+> 类属性和实例属性
+>
+> 如果需要在类外修改 类属性 ，必须通过 类对象 去引⽤然后进⾏修改。如果通过实例对象去引
+> ⽤，会产⽣⼀个同名的 实例属性 ，这种⽅式修改的是 实例属性 ，不会影响到 类属性 ，并且之后
+> 如果通过实例对象去引⽤该名称的属性，实例属性会强制屏蔽掉类属性，即引⽤的是 实例属性 ，
+> 除⾮删除了该 实例属性 。
+
+```python
+# 类属性
+class People(object):
+	name = 'lin' # 公有的类属性
+	__age = 18 # 私有的类属性
+
+p = People()
+print(p.name) # 正确
+print(People.name) # 正确
+print(p.__age) # 错误，不能在类外通过实例对象访问私有的类属性
+print(People.__age) # 错误，不能在类外通过类对象访问私有的类属性
+
+# 实例属性（对象属性）
+class People(object):
+	address = 'jiangxi' # 类属性
+	def __init__(self):
+		self.name = 'lin' # 实例属性
+		self.age = 18 # 实例属性
+
+p = People()
+p.age = 12 # 实例属性
+print(p.address) # 正确
+print(p.name) # 正确
+print(p.age) # 正确
+print(People.address) # 正确
+print(People.name) # 错误
+print(People.age) # 错误
+
+```
+
+## 静态方法和类方法
+
+> 类方法
+>
+> 是类对象所拥有的⽅法，需要⽤修饰器 @classmethod 来标识其为类⽅法，对于类⽅法，第⼀个参数必
+> 须是类对象，⼀般以 cls 作为第⼀个参数（可以用别的参数名，最好就用cls），能够通过实例对象和类对象去访问
+>
+> 类方法还可以用来修改类属性
+
+```python
+class User(object):
+    name = "lin"
+    @classmethod
+    def get_name(cls):
+        return cls.name
+
+u = User()
+print(u.get_name())
+print(User.get_name())
+
+# 修改类属性
+class User(object):
+    name = "lin"
+    @classmethod
+    def get_name(cls):
+        return cls.name
+    
+    @classmethod
+    def set_name(cls, name):
+        cls.name = name
+
+u = User()
+print(u.get_name())
+print(User.get_name())
+u.set_name("zhilin")
+print(u.get_name())
+print(User.get_name())
+
+```
+
+> 静态方法
+>
+> 需要通过修饰器` @staticmethod `来进⾏修饰，静态⽅法不需要多定义参数，可以通过对象和类来访问
+
+## 包和模块
+
+> `import module_name `导入模块，模块名.函数进行调用
+>
+> `from module_name import function_name` 可直接调用函数
+>
+> `as`给导入的模块起别名
+>
+> 模块定位
+>
+> 可以从sys.path中查看查找模块顺序
+
+```python
+import sys
+sys.path
+"""
+>>> import sys
+>>> sys.path
+['', '/usr/lib/python38.zip', '/usr/lib/python3.8', '/usr/lib/python3.8/lib-dynload', '/home/zhilin/.local/lib/python3.8/site-packages', '/usr/local/lib/python3.8/dist-packages', '/usr/local/lib/python3.8/dist-packages/cloud_init-20.1-py3.8.egg', '/usr/lib/python3/dist-packages']
+>>>
+"""
+```
+
+> python每个文件都是一个模块，模块名就是文件的名字
+>
+> 一个目录下有`__init__.py`文件，则这个目录就是包，在里面可以放该文件里面写`__all__ = [模块名1， 模块名2]`可以在`from package_name import *`时导入`__all__`里的模块
+>
+> `__init__.py`控制包的导入行为，为空时不会导入包中模块，可以在该文件中编写语句，当导入时这些语句会被执行
+
+Python有很多常用的第三方包，比如发请求用的requests，Web类框架有django, flask这些包，还有爬虫scrapy等等，import这些包时需要先安装这些包，可以下载对应文件放到site-packages目录下或者直接使用python的pip包管理工具，比如`pip install requests`会自动安装对应的包，下载较慢可以更换镜像源（比如阿里开源镜像站里搜索pip然后更换）下载。
 
