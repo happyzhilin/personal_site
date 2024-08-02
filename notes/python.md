@@ -947,3 +947,68 @@ sys.path
 
 Python有很多常用的第三方包，比如发请求用的requests，Web类框架有django, flask这些包，还有爬虫scrapy等等，import这些包时需要先安装这些包，可以下载对应文件放到site-packages目录下或者直接使用python的pip包管理工具，比如`pip install requests`会自动安装对应的包，下载较慢可以更换镜像源（比如阿里开源镜像站里搜索pip然后更换）下载。
 
+# Python环境相关问题
+
+## pip安装mysqlclient时遇到的问题
+
+​	pip安装别的包都能正常，pymsql也能正常安装，但是安装mysqlclient时就会报错，报错内容和`pkg-config`有关，搜了不少文档，记录一下成功解决该问题的方法
+
+是执行完`sudo apt-get install python3-dev default-libmysqlclient-dev build-essential`后就能正常安装mysqlclient了
+
+```python
+sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+```
+
+下面是报错代码信息，执行完上面的命令就能正常安装了 [参考文档]([mysql python - Mysqlclient cannot install via pip, cannot find pkg-config name in Ubuntu - Stack Overflow](https://stackoverflow.com/questions/76585758/mysqlclient-cannot-install-via-pip-cannot-find-pkg-config-name-in-ubuntu))
+
+```python
+"""
+zhilin@VM-8-16-ubuntu:~/code/mysite$ pip install mysqlclient
+Defaulting to user installation because normal site-packages is not writeable
+Looking in indexes: https://mirrors.cloud.tencent.com/pypi/simple
+Collecting mysqlclient
+  Using cached https://mirrors.cloud.tencent.com/pypi/packages/79/33/996dc0ba3f03e2399adc91a7de1f61cb14b57ebdb4cc6eca8a78723043cb/mysqlclient-2.2.4.tar.gz (90 kB)
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... error
+  error: subprocess-exited-with-error
+
+  × Getting requirements to build wheel did not run successfully.
+  │ exit code: 1
+  ╰─> [24 lines of output]
+      Trying pkg-config --exists mysqlclient
+      Command 'pkg-config --exists mysqlclient' returned non-zero exit status 1.
+      Trying pkg-config --exists mariadb
+      Command 'pkg-config --exists mariadb' returned non-zero exit status 1.
+      Trying pkg-config --exists libmariadb
+      Command 'pkg-config --exists libmariadb' returned non-zero exit status 1.
+      Traceback (most recent call last):
+        File "/home/zhilin/.local/lib/python3.8/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+          main()
+        File "/home/zhilin/.local/lib/python3.8/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+          json_out['return_val'] = hook(**hook_input['kwargs'])
+        File "/home/zhilin/.local/lib/python3.8/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 118, in get_requires_for_build_wheel
+          return hook(config_settings)
+        File "/tmp/pip-build-env-jij7ydhw/overlay/lib/python3.8/site-packages/setuptools/build_meta.py", line 327, in get_requires_for_build_wheel
+          return self._get_build_requires(config_settings, requirements=[])
+        File "/tmp/pip-build-env-jij7ydhw/overlay/lib/python3.8/site-packages/setuptools/build_meta.py", line 297, in _get_build_requires
+          self.run_setup()
+        File "/tmp/pip-build-env-jij7ydhw/overlay/lib/python3.8/site-packages/setuptools/build_meta.py", line 313, in run_setup
+          exec(code, locals())
+        File "<string>", line 155, in <module>
+        File "<string>", line 49, in get_config_posix
+        File "<string>", line 28, in find_package_name
+      Exception: Can not find valid pkg-config name.
+      Specify MYSQLCLIENT_CFLAGS and MYSQLCLIENT_LDFLAGS env vars manually
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: subprocess-exited-with-error
+
+× Getting requirements to build wheel did not run successfully.
+│ exit code: 1
+╰─> See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
+"""
+```
+

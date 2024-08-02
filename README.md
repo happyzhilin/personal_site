@@ -9,6 +9,8 @@ permalink: /
 > 作者：happylin
 >
 > 本站地址：[https://happylin.work](https://happylin.work)
+>
+> 小调试项目：[demo](http://happylin.work:8080)
 
 # 本站内容
 ## [Python相关的知识](/notes/python.md)
@@ -23,4 +25,4 @@ permalink: /
  [变量命名](https://unbug.github.io/codelf/)
  [在线工具](https://tool.lu/)
 
-      
+​      
